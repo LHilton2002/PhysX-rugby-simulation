@@ -41,10 +41,11 @@ namespace PhysicsEngine
 	{
 		Plane* plane;
 		Box* box;
-		CompoundShape* cShape;
+		RugbyGoalPost* gPost;
 		RugbyBall* ball;
 		FieldLines* fieldlines;
 		OuterLines* outerlines;
+		Castle* castleTB;
 
 	public:
 		///A custom scene class
@@ -62,15 +63,15 @@ namespace PhysicsEngine
 			GetMaterial()->setDynamicFriction(.2f);
 
 			plane = new Plane();
-			plane->Color(PxVec3(0,1,0));
+			plane->Color(PxVec3(0,0.3f,0));
 			Add(plane);
 
 			/*box = new Box(PxTransform(PxVec3(.0f, 10.f, .0f)));
 			box->Color(color_palette[0]);
 			Add(box);*/
 
-			cShape = new CompoundShape();
-			Add(cShape);
+			gPost = new RugbyGoalPost();
+			Add(gPost);
 
 			ball = new RugbyBall();
 			ball->Color(PxVec3(0.4f, 0.2f, 0));
@@ -82,6 +83,9 @@ namespace PhysicsEngine
 			outerlines = new OuterLines();
 			Add(outerlines);
 
+			castleTB = new Castle();
+			castleTB->Color(PxVec3(0.4f, 0.4f, 0.4f));
+			Add(castleTB);
 
 		}
 
