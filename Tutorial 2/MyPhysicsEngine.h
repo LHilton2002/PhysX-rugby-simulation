@@ -42,6 +42,9 @@ namespace PhysicsEngine
 		Plane* plane;
 		Box* box;
 		CompoundShape* cShape;
+		RugbyBall* ball;
+		FieldLines* fieldlines;
+		OuterLines* outerlines;
 
 	public:
 		///A custom scene class
@@ -68,6 +71,18 @@ namespace PhysicsEngine
 
 			cShape = new CompoundShape();
 			Add(cShape);
+
+			ball = new RugbyBall();
+			ball->Color(PxVec3(0.4f, 0.2f, 0));
+			Add(ball);
+
+			fieldlines = new FieldLines();
+			Add(fieldlines);
+
+			outerlines = new OuterLines();
+			Add(outerlines);
+
+
 		}
 
 		//Custom udpate function

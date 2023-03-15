@@ -123,7 +123,7 @@ namespace PhysicsEngine
 		}
 	};
 
-		// Creates a Predefined Compound Shape
+		// GOAL POST
 		class CompoundShape : public StaticActor
 		{
 		public:
@@ -136,23 +136,100 @@ namespace PhysicsEngine
 					CreateShape(PxBoxGeometry(dimensions), density);
 
 					if (i == 1) {
-						dimensions = PxVec3(3.0f, 0.6f, .5f);
+						dimensions = PxVec3(3.0f, 0.3f, .5f);
 					}
 				}
 
 				// Set Shape Transform 
-				GetShape(0)->setLocalPose(PxTransform(PxVec3(0.0f, 1.f, 0.0f)));
-				GetShape(1)->setLocalPose(PxTransform(PxVec3(4.0f, 1.f, 0.0f)));
-				GetShape(2)->setLocalPose(PxTransform(PxVec3(2.0f, 5.f, 0.0f)));
+				
+				//Left
+				GetShape(0)->setLocalPose(PxTransform(PxVec3(-3.0f, 1.f, 0.0f)));
+				//Right
+				GetShape(1)->setLocalPose(PxTransform(PxVec3(3.0f, 1.f, 0.0f)));
+
+				//horizontal
+				GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, 4.0f, 0.0f)));
 
 			}
 		};
 
+		//Rugby Ball
+		class RugbyBall : public DynamicActor
+		{
+		public:
 
-		class RugbyBall : public DynamicActor {
-			RugbyBall(const PxTransform& pose = PxTransform(PxIdentity), PxReal radius = 1.f, PxReal density = 1.f)
+			RugbyBall(const PxTransform& pose = PxTransform(PxIdentity), PxReal radius = 0.7f, PxReal density = 2.0f)
 				: DynamicActor(pose) {
 
+				for (int i = 0; i < 5; i++)
+				{
+					if (i != 0) {
+						radius = 0.5f;
+					}
+
+					if (i != 0 and i != 1 and i != 2) {
+						radius = 0.3f;
+					}
+
+					CreateShape(PxSphereGeometry(radius), density);
+				}
+
+				//middle ball
+				GetShape(0)->setLocalPose(PxTransform(PxVec3(0, 1, 3)));
+
+				//first outer balls
+				GetShape(1)->setLocalPose(PxTransform(PxVec3(0.5f, 1, 3)));
+				GetShape(2)->setLocalPose(PxTransform(PxVec3(-0.5f, 1, 3)));
+
+				//second outer balls
+				GetShape(3)->setLocalPose(PxTransform(PxVec3(0.85f, 1, 3)));
+				GetShape(4)->setLocalPose(PxTransform(PxVec3(-0.85f, 1, 3)));
 			}
 		};
+
+			// Field Lines
+			class FieldLines : public StaticActor
+			{
+			public:
+
+				FieldLines(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(20.0f, 1.0f, .5f), PxReal density = 1.f)
+					: StaticActor(pose)
+				{
+					for (unsigned int i = 0; i < 5; i++)
+					{
+						CreateShape(PxBoxGeometry(dimensions), density);
+
+					}
+
+					// Set Shape Transform 
+					GetShape(0)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, 0.0f)));
+					GetShape(1)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, 10.0f)));
+					GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, 20.0f)));
+					GetShape(3)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, 30.0f)));
+					GetShape(4)->setLocalPose(PxTransform(PxVec3(0, -0.9f, -5)));
+
+				}
+			};
+
+			// outer Lines
+			class OuterLines : public StaticActor
+			{
+			public:
+
+				OuterLines(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(0.5f, 1.0f, 21.0f), PxReal density = 1.f)
+					: StaticActor(pose)
+				{
+					for (unsigned int i = 0; i < 2; i++)
+					{
+						CreateShape(PxBoxGeometry(dimensions), density);
+
+					}
+
+					// Set Shape Transform 
+					GetShape(0)->setLocalPose(PxTransform(PxVec3(-20.0f, -0.9f, 12.0f)));
+					GetShape(1)->setLocalPose(PxTransform(PxVec3(20.0f, -0.9f, 12.0f)));
+
+				}
+			};
+		
 }
