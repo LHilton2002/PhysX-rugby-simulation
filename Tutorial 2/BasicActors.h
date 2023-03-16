@@ -26,7 +26,7 @@ namespace PhysicsEngine
 		// - pose in 0,0,0
 		// - dimensions: 1m
 		// - denisty: 1kg/m^3
-		Sphere(const PxTransform& pose = PxTransform(PxIdentity), PxReal radius = 1.f, PxReal density = 1.f)
+		Sphere(const PxTransform& pose = PxTransform(0,4,26), PxReal radius = 1.f, PxReal density = .5f)
 			: DynamicActor(pose)
 		{
 			CreateShape(PxSphereGeometry(radius), density);
@@ -41,11 +41,14 @@ namespace PhysicsEngine
 		// - pose in 0,0,0
 		// - dimensions: 1m x 1m x 1m
 		// - denisty: 1kg/m^3
-		Box(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(.5f, 20.0f, .5f), PxReal density = 1.f)
+		Box(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(2.3f, 2.3f, 2.3f), PxReal density = 10000000.0f)
 			: DynamicActor(pose)
 		{
 			CreateShape(PxBoxGeometry(dimensions), density);
+
+			GetShape(0)->setLocalPose(PxTransform(PxVec3(0, 10, 13.0f)));
 		}
+
 	};
 
 	class Capsule : public DynamicActor
@@ -158,7 +161,7 @@ namespace PhysicsEngine
 		{
 		public:
 
-			RugbyBall(const PxTransform& pose = PxTransform(0,0,25), PxReal radius = 0.7f, PxReal density = 1.0f)
+			RugbyBall(const PxTransform& pose = PxTransform(0,4,26), PxReal radius = 0.7f, PxReal density = 0.6f)
 				: DynamicActor(pose) {
 
 				for (int i = 0; i < 5; i++)
@@ -319,5 +322,50 @@ namespace PhysicsEngine
 
 				}
 			};
+
+
+
+			///seesaw BASE class
+			class SeesawBase : public StaticActor
+			{
+			public:
+				//a Box with default parameters:
+				// - pose in 0,0,0
+				// - dimensions: 1m x 1m x 1m
+				// - denisty: 1kg/m^3
+				SeesawBase(const PxTransform& pose = PxTransform(0.0f,0.0f,20.0f), PxVec3 dimensions = PxVec3(5.5f, 2.0f, 1.0f), PxReal density = 1.f)
+					: StaticActor(pose)
+				{
+					CreateShape(PxBoxGeometry(dimensions), density);
+				}
+			};
+
+
+			// Seesaw class
+			class Seesaw : public DynamicActor
+			{
+			public:
+
+				Seesaw(const PxTransform& pose = PxTransform(0.0f, .0f, 20.0f), PxVec3 dimensions = PxVec3(1.0f, 0.25f, 7.0f), PxReal density = 1.f)
+					: DynamicActor(pose)
+				{
+
+
+					for (unsigned int i = 0; i < 2; i++)
+					{
+						CreateShape(PxBoxGeometry(dimensions), density);
+
+						if (i != 1) {
+							dimensions = PxVec3(3, 0.35f, 2);
+						}
+					}
+
+
+					GetShape(0)->setLocalPose(PxTransform(PxVec3(0,0,0)));  // Seesaw stick
+					GetShape(1)->setLocalPose(PxTransform(PxVec3(0,0,7)));  // Seesaw Spoon
+
+				}
+			};
+
 
 }

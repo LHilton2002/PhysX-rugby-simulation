@@ -46,6 +46,9 @@ namespace PhysicsEngine
 		FieldLines* fieldlines;
 		OuterLines* outerlines;
 		Castle* castleTB;
+		SeesawBase* ssBase;
+		Seesaw* ss;
+		Sphere* sphere;
 
 	public:
 		///A custom scene class
@@ -66,9 +69,9 @@ namespace PhysicsEngine
 			plane->Color(PxVec3(0,0.3f,0));
 			Add(plane);
 
-			/*box = new Box(PxTransform(PxVec3(.0f, 10.f, .0f)));
+			box = new Box();
 			box->Color(color_palette[0]);
-			Add(box);*/
+			Add(box);
 
 			gPost = new RugbyGoalPost();
 			Add(gPost);
@@ -86,6 +89,15 @@ namespace PhysicsEngine
 			castleTB = new Castle();
 			castleTB->Color(PxVec3(0.4f, 0.4f, 0.4f));
 			Add(castleTB);
+
+			ssBase = new SeesawBase();
+			Add(ssBase);
+
+			ss = new Seesaw();
+			Add(ss);
+
+			/*sphere = new Sphere();
+			Add(sphere);*/
 
 		}
 
