@@ -49,6 +49,7 @@ namespace PhysicsEngine
 		SeesawBase* ssBase;
 		Seesaw* ss;
 		Sphere* sphere;
+		Cloth* cloth;
 
 	public:
 		///A custom scene class
@@ -98,6 +99,16 @@ namespace PhysicsEngine
 
 			/*sphere = new Sphere();
 			Add(sphere);*/
+
+			//cloth left top
+			cloth = new Cloth(PxTransform(PxVec3(-36.f, 20.f, -7.f)), PxVec2(6.f, 6.f), 40, 40);
+			cloth->Color(PxVec3(1,0,0));
+			Add(cloth);        
+
+			//cloth right top
+			cloth = new Cloth(PxTransform(PxVec3(30.f, 20.f, -7.f)), PxVec2(6.f, 6.f), 10, 10);
+			cloth->Color(PxVec3(0, 0, 1));
+			Add(cloth);
 
 		}
 
