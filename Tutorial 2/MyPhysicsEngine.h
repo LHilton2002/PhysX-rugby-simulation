@@ -72,6 +72,7 @@ namespace PhysicsEngine
 
 			box = new Box();
 			box->Color(color_palette[0]);
+			box->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 10, 13.0f)));
 			Add(box);
 
 			gPost = new RugbyGoalPost();
@@ -79,6 +80,7 @@ namespace PhysicsEngine
 
 			ball = new RugbyBall();
 			ball->Color(PxVec3(0.4f, 0.2f, 0));
+			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 4, 26)));
 			Add(ball);
 
 			fieldlines = new FieldLines();

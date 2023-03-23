@@ -33,7 +33,6 @@ namespace VisualDebugger
 
 		///get camera direction
 		PxVec3 getDir() const;
-
 		///get camera transformation
 		PxTransform	getTransform() const;
 

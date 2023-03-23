@@ -41,12 +41,12 @@ namespace PhysicsEngine
 		// - pose in 0,0,0
 		// - dimensions: 1m x 1m x 1m
 		// - denisty: 1kg/m^3
-		Box(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(2.3f, 2.3f, 2.3f), PxReal density = 10000000.0f)
+		Box(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(2.3f, 2.3f, 2.3f), PxReal density = 10.0f)
 			: DynamicActor(pose)
 		{
 			CreateShape(PxBoxGeometry(dimensions), density);
 
-			GetShape(0)->setLocalPose(PxTransform(PxVec3(0, 10, 13.0f)));
+			//GetShape(0)->setLocalPose(PxTransform(PxVec3(0, 10, 13.0f)));
 		}
 
 	};
@@ -178,15 +178,19 @@ namespace PhysicsEngine
 				}
 
 				//middle ball
-				GetShape(0)->setLocalPose(PxTransform(PxVec3(0, 1, 3)));
+				//GetShape(0)->setLocalPose(PxTransform(PxVec3(0, 1, 3)));
 
 				//first outer balls
-				GetShape(1)->setLocalPose(PxTransform(PxVec3(0.5f, 1, 3)));
-				GetShape(2)->setLocalPose(PxTransform(PxVec3(-0.5f, 1, 3)));
+				//GetShape(1)->setLocalPose(PxTransform(PxVec3(0.5f, 1, 3)));
+				//GetShape(2)->setLocalPose(PxTransform(PxVec3(-0.5f, 1, 3)));
+				GetShape(1)->setLocalPose(PxTransform(PxVec3(0.5f, 0, 0)));
+				GetShape(2)->setLocalPose(PxTransform(PxVec3(-0.5f, 0, 0)));
 
 				//second outer balls
-				GetShape(3)->setLocalPose(PxTransform(PxVec3(0.85f, 1, 3)));
-				GetShape(4)->setLocalPose(PxTransform(PxVec3(-0.85f, 1, 3)));
+				//GetShape(3)->setLocalPose(PxTransform(PxVec3(0.85f, 1, 3)));
+				//GetShape(4)->setLocalPose(PxTransform(PxVec3(-0.85f, 1, 3)));
+				GetShape(3)->setLocalPose(PxTransform(PxVec3(0.85f, 0, 0)));
+				GetShape(4)->setLocalPose(PxTransform(PxVec3(-0.85f, 0, 0)));
 			}
 		};
 
@@ -361,7 +365,7 @@ namespace PhysicsEngine
 					}
 
 
-					GetShape(0)->setLocalPose(PxTransform(PxVec3(0,0,0)));  // Seesaw stick
+					//GetShape(0)->setLocalPose(PxTransform(PxVec3(0,0,0)));  // Seesaw stick
 					GetShape(1)->setLocalPose(PxTransform(PxVec3(0,0,7)));  // Seesaw Spoon
 
 				}
