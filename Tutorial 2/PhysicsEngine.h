@@ -64,6 +64,7 @@ namespace PhysicsEngine
 		std::vector<PxShape*> Actor::GetShapes(PxU32 index=-1);
 
 		virtual void CreateShape(const PxGeometry& geometry, PxReal density) {}
+		void SetTrigger(bool value, PxU32 shape_index = -1);
 	};
 
 	class DynamicActor : public Actor

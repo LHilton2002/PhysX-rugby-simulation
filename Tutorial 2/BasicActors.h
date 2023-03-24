@@ -51,6 +51,21 @@ namespace PhysicsEngine
 
 	};
 
+
+	/// trigger Box class
+	class triggerBox : public StaticActor
+	{
+	public:
+
+		triggerBox(const PxTransform& pose = PxTransform(0,13,-50), PxVec3 dimensions = PxVec3(4.2f, 7.5f, 0.5f), PxReal density = 1.0f)
+			: StaticActor(pose)
+		{
+			CreateShape(PxBoxGeometry(dimensions), density);
+
+		}
+
+	};
+
 	class Capsule : public DynamicActor
 	{
 	public:
@@ -402,7 +417,7 @@ namespace PhysicsEngine
 					GetShape(1)->setLocalPose(PxTransform(PxVec3(0.0f, 0.5f, 15.0f), PxQuat(PxPi / 4, PxVec3(1.0f, 0.0f, 0.0f))));
 
 					CreateShape(PxBoxGeometry(PxVec3(3.0f, 1.5f, 0.1f)), density);
-					GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, 2.5f, 15.0f), PxQuat(PxPi / 4, PxVec3(1.0f, 0.0f, 0.0f))));
+					GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, 2.5f, 15.0f), PxQuat(PxPi / 4, PxVec3(-1.0f, 0.0f, 0.0f))));
 				}
 
 			};

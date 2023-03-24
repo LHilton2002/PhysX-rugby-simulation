@@ -36,6 +36,63 @@ namespace PhysicsEngine
 		}
 	};
 
+
+	class MySimulationEventCallback : public PxSimulationEventCallback
+	{
+	public:
+		//an example variable that will be checked in the main simulation loop
+		bool trigger;
+
+		MySimulationEventCallback() : trigger(false) {}
+
+		///Method called when the contact with the trigger object is detected.
+		virtual void onTrigger(PxTriggerPair* pairs, PxU32 count)
+		{
+			//you can read the trigger information here
+			for (PxU32 i = 0; i < count; i++)
+			{
+				//filter out contact with the planes
+				if (pairs[i].otherShape->getGeometryType() != PxGeometryType::ePLANE)
+				{
+					//check if eNOTIFY_TOUCH_FOUND trigger
+					if (pairs[i].status & PxPairFlag::eNOTIFY_TOUCH_FOUND)
+					{
+						cerr << "onTrigger::eNOTIFY_TOUCH_FOUND" << endl;
+						trigger = true;
+					}
+					//check if eNOTIFY_TOUCH_LOST trigger
+					if (pairs[i].status & PxPairFlag::eNOTIFY_TOUCH_LOST)
+					{
+						cerr << "onTrigger::eNOTIFY_TOUCH_LOST" << endl;
+						trigger = false;
+					}
+				}
+			}
+		}
+
+		///Method called when the contact by the filter shader is detected.
+		virtual void onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs)
+		{
+			cerr << "Contact found between " << pairHeader.actors[0]->getName() << " " << pairHeader.actors[1]->getName() << endl;
+
+			//check all pairs
+			for (PxU32 i = 0; i < nbPairs; i++)
+			{
+				//check eNOTIFY_TOUCH_FOUND
+				if (pairs[i].events & PxPairFlag::eNOTIFY_TOUCH_FOUND)
+				{
+					cerr << "onContact::eNOTIFY_TOUCH_FOUND" << endl;
+				}
+				//check eNOTIFY_TOUCH_LOST
+				if (pairs[i].events & PxPairFlag::eNOTIFY_TOUCH_LOST)
+				{
+					cerr << "onContact::eNOTIFY_TOUCH_LOST" << endl;
+				}
+			}
+		}
+	};
+
+
 	///Custom scene class
 	class MyScene : public Scene
 	{
@@ -50,6 +107,8 @@ namespace PhysicsEngine
 		Seesaw* ss;
 		Sphere* sphere;
 		Cloth* cloth;
+		triggerBox* tBox;
+		bool boxSpawned;
 
 	public:
 		///A custom scene class
@@ -70,11 +129,16 @@ namespace PhysicsEngine
 			plane->Color(PxVec3(0,0.3f,0));
 			Add(plane);
 
-			box = new Box();
+			/*box = new Box();
 			box->Color(color_palette[0]);
 			box->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 85, -25.0f)));
-			box->Get()->is<PxRigidDynamic>()->setMass(40);
-			Add(box);
+			box->Get()->is<PxRigidDynamic>()->setMass(39);
+			Add(box);*/
+
+			tBox = new triggerBox();
+			tBox->Color(PxVec3(0, 0, 1));
+			tBox->SetTrigger(true);
+			Add(tBox);
 
 			gPost = new RugbyGoalPost();
 			Add(gPost);
@@ -119,6 +183,17 @@ namespace PhysicsEngine
 		virtual void CustomUpdate() 
 		{
 		}
+
+		virtual void spawnBox() {
+			if (boxSpawned == false) {
+				box = new Box();
+				box->Color(color_palette[0]);
+				box->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 85, -28.0f)));
+				box->Get()->is<PxRigidDynamic>()->setMass(25);
+				Add(box);
+			}
+		}
+
 
 	};
 }

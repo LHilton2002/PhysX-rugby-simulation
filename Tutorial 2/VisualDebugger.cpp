@@ -290,6 +290,12 @@ namespace VisualDebugger
 			//toggle scene pause
 			scene->Pause(!scene->Pause());
 			break;
+
+		case GLUT_KEY_F11:
+			//toggle scene pause
+			scene->spawnBox();
+			break;
+
 		case GLUT_KEY_F12:
 			//resect scene
 			scene->Reset();

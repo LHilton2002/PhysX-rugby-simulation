@@ -110,7 +110,15 @@ namespace PhysicsEngine
 	{
 		return actor;
 	}
-
+	void Actor::SetTrigger(bool value, PxU32 shape_index)
+	{
+		std::vector<PxShape*> shape_list = GetShapes(shape_index);
+		for (PxU32 i = 0; i < shape_list.size(); i++)
+		{
+			shape_list[i]->setFlag(PxShapeFlag::eSIMULATION_SHAPE, !value);
+			shape_list[i]->setFlag(PxShapeFlag::eTRIGGER_SHAPE, value);
+		}
+	}
 	void Actor::Color(PxVec3 new_color, PxU32 shape_index)
 	{
 		//change color of all shapes
