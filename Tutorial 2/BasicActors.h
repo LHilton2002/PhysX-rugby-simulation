@@ -41,7 +41,7 @@ namespace PhysicsEngine
 		// - pose in 0,0,0
 		// - dimensions: 1m x 1m x 1m
 		// - denisty: 1kg/m^3
-		Box(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(2.3f, 2.3f, 2.3f), PxReal density = 10.0f)
+		Box(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(1.3f, 1.3f, 1.3f), PxReal density = 1.0f)
 			: DynamicActor(pose)
 		{
 			CreateShape(PxBoxGeometry(dimensions), density);
@@ -146,12 +146,12 @@ namespace PhysicsEngine
 			// Set Shape Transform 
 
 			// Left
-			GetShape(0)->setLocalPose(PxTransform(PxVec3(-5.0f, 1.f, 0.0f)));
+			GetShape(0)->setLocalPose(PxTransform(PxVec3(-5.0f, 1.f, -50.0f)));
 			// Right
-			GetShape(1)->setLocalPose(PxTransform(PxVec3(5.0f, 1.f, 0.0f)));
+			GetShape(1)->setLocalPose(PxTransform(PxVec3(5.0f, 1.f, -50.0f)));
 
 			// Horizontal (cross bar)
-			GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, 5.0f, 0.0f)));
+			GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, 5.0f, -50.0f)));
 		}
 	};
 
@@ -202,18 +202,29 @@ namespace PhysicsEngine
 				FieldLines(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(20.0f, 1.0f, .5f), PxReal density = 1.f)
 					: StaticActor(pose)
 				{
-					for (unsigned int i = 0; i < 5; i++)
+					for (unsigned int i = 0; i < 7; i++)
 					{
 						CreateShape(PxBoxGeometry(dimensions), density);
 
 					}
 
 					// Set Shape Transform 
-					GetShape(0)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, 0.0f)));
-					GetShape(1)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, 10.0f)));
-					GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, 20.0f)));
-					GetShape(3)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, 30.0f)));
-					GetShape(4)->setLocalPose(PxTransform(PxVec3(0, -0.9f, -5)));
+
+					GetShape(0)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, -50.0f)));
+
+					//+10 each
+					GetShape(1)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, -30.0f)));
+
+					GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, -20.0f)));
+
+					GetShape(3)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, -10.0f)));
+
+					GetShape(5)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, 0.0f)));
+
+					GetShape(6)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, 10.0f)));
+
+					//try -5
+					GetShape(4)->setLocalPose(PxTransform(PxVec3(0, -0.9f, -40)));
 
 				}
 			};
@@ -223,7 +234,7 @@ namespace PhysicsEngine
 			{
 			public:
 
-				OuterLines(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(0.5f, 1.0f, 21.0f), PxReal density = 1.f)
+				OuterLines(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(0.5f, 1.0f, 30.0f), PxReal density = 1.f)
 					: StaticActor(pose)
 				{
 					for (unsigned int i = 0; i < 2; i++)
@@ -233,8 +244,8 @@ namespace PhysicsEngine
 					}
 
 					// Set Shape Transform 
-					GetShape(0)->setLocalPose(PxTransform(PxVec3(-20.0f, -0.9f, 12.0f)));
-					GetShape(1)->setLocalPose(PxTransform(PxVec3(20.0f, -0.9f, 12.0f)));
+					GetShape(0)->setLocalPose(PxTransform(PxVec3(-20.0f, -0.9f, -20.0f)));
+					GetShape(1)->setLocalPose(PxTransform(PxVec3(20.0f, -0.9f, -20.0f)));
 
 				}
 			};
@@ -297,7 +308,7 @@ namespace PhysicsEngine
 			class Castle : public StaticActor
 			{
 			public:
-				Castle(const PxTransform& pose = PxTransform(PxVec3(0.f, 0.f, 20.f)), PxVec3 dimensions = PxVec3(40.0f, 7.0f, 40.0f), PxReal density = 1.f)
+				Castle(const PxTransform& pose = PxTransform(PxVec3(0.f, 0.f, -23.f)), PxVec3 dimensions = PxVec3(40.0f, 7.0f, 40.0f), PxReal density = 1.f)
 					: StaticActor(pose)
 				{
 					// Create main walls
@@ -337,7 +348,7 @@ namespace PhysicsEngine
 				// - pose in 0,0,0
 				// - dimensions: 1m x 1m x 1m
 				// - denisty: 1kg/m^3
-				SeesawBase(const PxTransform& pose = PxTransform(0.0f,0.0f,20.0f), PxVec3 dimensions = PxVec3(5.5f, 2.0f, 1.0f), PxReal density = 1.f)
+				SeesawBase(const PxTransform& pose = PxTransform(0.0f,0.0f,-20.0f), PxVec3 dimensions = PxVec3(5.5f, 2.0f, 2.0f), PxReal density = 1.f)
 					: StaticActor(pose)
 				{
 					CreateShape(PxBoxGeometry(dimensions), density);
@@ -345,12 +356,12 @@ namespace PhysicsEngine
 			};
 
 
-			// Seesaw class
+			/*// Seesaw class
 			class Seesaw : public DynamicActor
 			{
 			public:
 
-				Seesaw(const PxTransform& pose = PxTransform(0.0f, .0f, 20.0f), PxVec3 dimensions = PxVec3(1.0f, 0.25f, 7.0f), PxReal density = 1.f)
+				Seesaw(const PxTransform& pose = PxTransform(0.0f, .0f, -20.0f), PxVec3 dimensions = PxVec3(1.0f, 0.25f, 7.0f), PxReal density = 1.f)
 					: DynamicActor(pose)
 				{
 
@@ -362,15 +373,39 @@ namespace PhysicsEngine
 						if (i != 1) {
 							dimensions = PxVec3(3, 0.35f, 2);
 						}
-					}
 
+					}
 
 					//GetShape(0)->setLocalPose(PxTransform(PxVec3(0,0,0)));  // Seesaw stick
 					GetShape(1)->setLocalPose(PxTransform(PxVec3(0,0,7)));  // Seesaw Spoon
 
 				}
-			};
+			};*/
 
+
+			
+			class Seesaw : public DynamicActor
+			{
+			public:
+
+				Seesaw(const PxTransform& pose = PxTransform(0,5,-20), PxReal density = PxReal(1.0f))
+					: DynamicActor(pose)
+				{
+					CreateShape(PxBoxGeometry(PxVec3(1.5f, 0.1f, 15.0f)), density);
+
+					//CreateShape(PxBoxGeometry(PxVec3(2.0f, 0.1f, 1.0f)), density);
+
+					//GetShape(1)->setLocalPose(PxTransform(PxVec3(0.0f, 0.0f, 3.5f)));
+
+					// Angle Barrier
+					CreateShape(PxBoxGeometry(PxVec3(3.0f, 1.5f, 0.1f)), density);
+					GetShape(1)->setLocalPose(PxTransform(PxVec3(0.0f, 0.5f, 15.0f), PxQuat(PxPi / 4, PxVec3(1.0f, 0.0f, 0.0f))));
+
+					CreateShape(PxBoxGeometry(PxVec3(3.0f, 1.5f, 0.1f)), density);
+					GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, 2.5f, 15.0f), PxQuat(PxPi / 4, PxVec3(1.0f, 0.0f, 0.0f))));
+				}
+
+			};
 
 
 
