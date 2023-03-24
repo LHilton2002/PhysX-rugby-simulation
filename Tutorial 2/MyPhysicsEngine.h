@@ -93,6 +93,7 @@ namespace PhysicsEngine
 	};
 
 
+
 	///Custom scene class
 	class MyScene : public Scene
 	{
@@ -182,7 +183,9 @@ namespace PhysicsEngine
 		//Custom udpate function
 		virtual void CustomUpdate() 
 		{
+
 		}
+
 
 		virtual void spawnBox() {
 			if (boxSpawned == false) {

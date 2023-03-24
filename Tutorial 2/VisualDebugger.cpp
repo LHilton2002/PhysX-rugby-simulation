@@ -109,6 +109,10 @@ namespace VisualDebugger
 		hud.AddLine(HELP, "");
 		hud.AddLine(HELP, " Force (applied to the selected actor)");
 		hud.AddLine(HELP, "    I,K,J,L,U,M - forward,backward,left,right,up,down");
+		hud.AddLine(HELP, "");
+		hud.AddLine(HELP, " Extra Controls");
+		hud.AddLine(HELP, "    F11 - Spawn Brick For Free Kick");
+
 		//add a pause screen
 		hud.AddLine(PAUSE, "");
 		hud.AddLine(PAUSE, "");

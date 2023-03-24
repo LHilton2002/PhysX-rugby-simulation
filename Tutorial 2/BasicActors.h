@@ -146,7 +146,7 @@ namespace PhysicsEngine
 	{
 	public:
 
-		RugbyGoalPost(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(0.5f, 20.0f, 0.5f), PxReal density = 1.f)
+		RugbyGoalPost(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(0.5f, 26.0f, 0.5f), PxReal density = 1.f) // rugby union post. 26/2 = 13m high
 			: StaticActor(pose)
 		{
 			for (unsigned int i = 0; i < 3; i++)
@@ -154,19 +154,19 @@ namespace PhysicsEngine
 				CreateShape(PxBoxGeometry(dimensions), density);
 
 				if (i == 1) {
-					dimensions = PxVec3(5.0f, 0.3f, .5f); 
+					dimensions = PxVec3(2.8f, 0.3f, .5f); //2.8 * 2 = 5.6m crossbar 
 				}
 			}
 
 			// Set Shape Transform 
 
 			// Left
-			GetShape(0)->setLocalPose(PxTransform(PxVec3(-5.0f, 1.f, -50.0f)));
+			GetShape(0)->setLocalPose(PxTransform(PxVec3(-2.8f, 1.f, -50.0f)));
 			// Right
-			GetShape(1)->setLocalPose(PxTransform(PxVec3(5.0f, 1.f, -50.0f)));
+			GetShape(1)->setLocalPose(PxTransform(PxVec3(2.8f, 1.f, -50.0f)));
 
 			// Horizontal (cross bar)
-			GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, 5.0f, -50.0f)));
+			GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, 3.0f, -50.0f)));
 		}
 	};
 
