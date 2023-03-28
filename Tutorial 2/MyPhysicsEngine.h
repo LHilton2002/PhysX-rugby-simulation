@@ -3,6 +3,13 @@
 #include "BasicActors.h"
 #include <iostream>
 #include <iomanip>
+#include <stdlib.h>
+#include <Windows.h>
+#include "VisualDebugger.h"
+#include <vector>
+#include "Extras\Camera.h"
+#include "Extras\Renderer.h"
+#include "Extras\HUD.h"
 
 namespace PhysicsEngine
 {
@@ -36,7 +43,6 @@ namespace PhysicsEngine
 		}
 	};
 
-
 	class MySimulationEventCallback : public PxSimulationEventCallback
 	{
 	public:
@@ -57,13 +63,14 @@ namespace PhysicsEngine
 					//check if eNOTIFY_TOUCH_FOUND trigger
 					if (pairs[i].status & PxPairFlag::eNOTIFY_TOUCH_FOUND)
 					{
-						cerr << "onTrigger::eNOTIFY_TOUCH_FOUND" << endl;
+						//cerr << "onTrigger::eNOTIFY_TOUCH_FOUND" << endl;
+						cerr << "Well done, you scored" << endl;
 						trigger = true;
 					}
 					//check if eNOTIFY_TOUCH_LOST trigger
 					if (pairs[i].status & PxPairFlag::eNOTIFY_TOUCH_LOST)
 					{
-						cerr << "onTrigger::eNOTIFY_TOUCH_LOST" << endl;
+						//cerr << "onTrigger::eNOTIFY_TOUCH_LOST" << endl;
 						trigger = false;
 					}
 				}
@@ -101,6 +108,7 @@ namespace PhysicsEngine
 				if (pairs[i].events & PxPairFlag::eNOTIFY_TOUCH_FOUND)
 				{
 					cerr << "onContact::eNOTIFY_TOUCH_FOUND" << endl;
+					
 				}
 				//check eNOTIFY_TOUCH_LOST
 				if (pairs[i].events & PxPairFlag::eNOTIFY_TOUCH_LOST)

@@ -337,7 +337,7 @@ namespace PhysicsEngine
 			class Castle : public StaticActor
 			{
 			public:
-				Castle(const PxTransform& pose = PxTransform(PxVec3(0.f, 0.f, -23.f)), PxVec3 dimensions = PxVec3(40.0f, 7.0f, 40.0f), PxReal density = 1.f)
+				Castle(const PxTransform& pose = PxTransform(PxVec3(0.f, 0.f, -23.f)), PxVec3 dimensions = PxVec3(40.0f, 7.0f, 90.0f), PxReal density = 1.f)
 					: StaticActor(pose)
 				{
 					// Create main walls
@@ -373,10 +373,6 @@ namespace PhysicsEngine
 			class SeesawBase : public StaticActor
 			{
 			public:
-				//a Box with default parameters:
-				// - pose in 0,0,0
-				// - dimensions: 1m x 1m x 1m
-				// - denisty: 1kg/m^3
 				SeesawBase(const PxTransform& pose = PxTransform(0.0f,0.0f,-20.0f), PxVec3 dimensions = PxVec3(5.5f, 2.0f, 2.0f), PxReal density = 1.f)
 					: StaticActor(pose)
 				{
