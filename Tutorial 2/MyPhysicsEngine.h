@@ -137,8 +137,12 @@ namespace PhysicsEngine
 
 
 		//materials
-		PxMaterial* ballMaterial = CreateMaterial(0.7f, 0.5f, 0.7f);
-		PxMaterial* grassMaterial = CreateMaterial(0.9f, 0.5f, 0.3f);
+		// https://www.engineeringtoolbox.com/friction-coefficients-d_778.html
+		// https://hypertextbook.com/facts/2006/restitution.shtml
+		PxMaterial* ballMaterial = CreateMaterial(1.16f, 0.65f, 0.828f); //rugby ball
+		PxMaterial* grassMaterial = CreateMaterial(0.9f, 0.5f, 0.3f); //grass
+		PxMaterial* postMaterial = CreateMaterial(0.65f, 0.42f, 0.597f); // steel post
+		PxMaterial* castleMaterial = CreateMaterial(0.5f, 0.4f, 0.8f); //stone castle
 
 
 	public:
@@ -184,6 +188,7 @@ namespace PhysicsEngine
 
 
 			gPost = new RugbyGoalPost();
+			gPost->Material(postMaterial);
 			Add(gPost);
 
 			ball = new RugbyBall();
@@ -193,13 +198,16 @@ namespace PhysicsEngine
 			Add(ball);
 
 			fieldlines = new FieldLines();
+			fieldlines->Material(grassMaterial);
 			Add(fieldlines);
 
 			outerlines = new OuterLines();
+			outerlines->Material(grassMaterial);
 			Add(outerlines);
 
 			castleTB = new Castle();
 			castleTB->Color(PxVec3(0.4f, 0.4f, 0.4f));
+			castleTB->Material(castleMaterial);
 			Add(castleTB);
 
 			ssBase = new SeesawBase();

@@ -384,34 +384,6 @@ namespace PhysicsEngine
 				}
 			};
 
-
-			/*// Seesaw class
-			class Seesaw : public DynamicActor
-			{
-			public:
-
-				Seesaw(const PxTransform& pose = PxTransform(0.0f, .0f, -20.0f), PxVec3 dimensions = PxVec3(1.0f, 0.25f, 7.0f), PxReal density = 1.f)
-					: DynamicActor(pose)
-				{
-
-
-					for (unsigned int i = 0; i < 2; i++)
-					{
-						CreateShape(PxBoxGeometry(dimensions), density);
-
-						if (i != 1) {
-							dimensions = PxVec3(3, 0.35f, 2);
-						}
-
-					}
-
-					//GetShape(0)->setLocalPose(PxTransform(PxVec3(0,0,0)));  // Seesaw stick
-					GetShape(1)->setLocalPose(PxTransform(PxVec3(0,0,7)));  // Seesaw Spoon
-
-				}
-			};*/
-
-
 			
 			class Seesaw : public DynamicActor
 			{
@@ -422,11 +394,6 @@ namespace PhysicsEngine
 				{
 					CreateShape(PxBoxGeometry(PxVec3(1.5f, 0.1f, 15.0f)), density);
 
-					//CreateShape(PxBoxGeometry(PxVec3(2.0f, 0.1f, 1.0f)), density);
-
-					//GetShape(1)->setLocalPose(PxTransform(PxVec3(0.0f, 0.0f, 3.5f)));
-
-					// Angle Barrier
 					CreateShape(PxBoxGeometry(PxVec3(3.0f, 1.5f, 0.1f)), density);
 					GetShape(1)->setLocalPose(PxTransform(PxVec3(0.0f, 0.5f, 15.0f), PxQuat(PxPi / 4, PxVec3(1.0f, 0.0f, 0.0f))));
 
