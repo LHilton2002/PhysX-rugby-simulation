@@ -137,6 +137,7 @@ namespace PhysicsEngine
 		Cloth* cloth;
 		Pyramid* pyramid;
 		blockerBox* blocker;
+		flagPole* pole;
 
 		//triggers
 		triggerBox* tBox;
@@ -228,14 +229,18 @@ namespace PhysicsEngine
 			Add(sphere);*/
 
 			//cloth left top
-			cloth = new Cloth(PxTransform(PxVec3(-36.f, 20.f, -7.f)), PxVec2(6.f, 6.f), 40, 40);
+			cloth = new Cloth(PxTransform(PxVec3(-26.0f, 20.f, -108.f)), PxVec2(6.f, 6.f), 40, 40);
 			cloth->Color(PxVec3(1,0,0));
 			Add(cloth);        
 
 			//cloth right top
-			cloth = new Cloth(PxTransform(PxVec3(30.f, 20.f, -7.f)), PxVec2(6.f, 6.f), 10, 10);
+			cloth = new Cloth(PxTransform(PxVec3(20.f, 20.f, -108.f)), PxVec2(6.f, 6.f), 10, 10);
 			cloth->Color(PxVec3(0, 0, 1));
 			Add(cloth);
+
+			pole = new flagPole;
+			pole->Color(PxVec3(0.4f, 0.4f, 0.4f));
+			Add(pole);
 
 		}
 

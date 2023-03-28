@@ -280,60 +280,6 @@ namespace PhysicsEngine
 			};
 
 
-
-			// Castle Top and Bottom Lines
-			class CastleTopBot : public StaticActor
-			{
-			public:
-
-				CastleTopBot(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(0.5f, 3.0f, 40.0f), PxReal density = 1.f)
-					: StaticActor(pose)
-				{
-					for (unsigned int i = 0; i < 2; i++)
-					{
-						CreateShape(PxBoxGeometry(dimensions), density);
-
-					}
-
-					// Set Shape Transform 
-					GetShape(0)->setLocalPose(PxTransform(PxVec3(-25.0f, 7.0f, 15.0f)));
-					GetShape(1)->setLocalPose(PxTransform(PxVec3(25.0f, 7.0f, 15.0f)));
-
-				}
-
-			};
-
-
-			/*class Castle : public StaticActor
-			{
-			public:
-				Castle(const PxTransform& pose = PxTransform(PxIdentity), PxVec3 dimensions = PxVec3(40.0f, 7.0f, 40.0f), PxReal density = 1.f)
-					: StaticActor(pose)
-				{
-					// Create main walls
-					CreateShape(PxBoxGeometry(dimensions.x, dimensions.y, 1.0f), density);  // front wall
-					CreateShape(PxBoxGeometry(dimensions.x, dimensions.y, 1.0f), density);  // back wall
-					CreateShape(PxBoxGeometry(1.0f, dimensions.y, dimensions.z), density);  // left wall
-					CreateShape(PxBoxGeometry(1.0f, dimensions.y, dimensions.z), density);  // right wall
-
-					// Create towers
-					CreateShape(PxBoxGeometry(10.0f, 20.0f, 10.0f), density);  // tower 1
-					CreateShape(PxBoxGeometry(10.0f, 20.0f, 10.0f), density);  // tower 2
-					CreateShape(PxBoxGeometry(10.0f, 20.0f, 10.0f), density);  // tower 3
-					CreateShape(PxBoxGeometry(10.0f, 20.0f, 10.0f), density);  // tower 4
-
-					// Set shape transforms
-					GetShape(0)->setLocalPose(PxTransform(PxVec3(0.f, 0.f, dimensions.z - 0.5f)));  // front wall
-					GetShape(1)->setLocalPose(PxTransform(PxVec3(0.f, 0.f, -dimensions.z + 0.5f)));  // back wall
-					GetShape(2)->setLocalPose(PxTransform(PxVec3(-dimensions.x + 0.5f, 0.f, 0.f)));  // left wall
-					GetShape(3)->setLocalPose(PxTransform(PxVec3(dimensions.x - 0.5f, 0.f, 0.f)));  // right wall
-					GetShape(4)->setLocalPose(PxTransform(PxVec3(-dimensions.x + 10.0f, 10.0f, dimensions.z - 10.0f)));  // tower 1
-					GetShape(5)->setLocalPose(PxTransform(PxVec3(dimensions.x - 10.0f, 10.0f, dimensions.z - 10.0f)));  // tower 2
-					GetShape(6)->setLocalPose(PxTransform(PxVec3(-dimensions.x + 10.0f, 10.0f, -dimensions.z + 10.0f)));  // tower 3
-					GetShape(7)->setLocalPose(PxTransform(PxVec3(dimensions.x - 10.0f, 10.0f, -dimensions.z + 10.0f)));  // tower 4
-				}
-			};*/
-
 			class Castle : public StaticActor
 			{
 			public:
@@ -367,6 +313,21 @@ namespace PhysicsEngine
 				}
 			};
 
+			class flagPole : public StaticActor
+			{
+			public:
+				flagPole(const PxTransform& pose = PxTransform(PxVec3(0.f, 0.f, -20.f)), PxVec3 dimensions = PxVec3(40.0f, 7.0f, 90.0f), PxReal density = 1.f)
+					: StaticActor(pose)
+				{
+					// Create main walls
+					CreateShape(PxBoxGeometry(30.0f, 0.5f, 1.0f), density);  // front wall
+
+					// Set shape transforms
+					GetShape(0)->setLocalPose(PxTransform(PxVec3(0.f, 20.f, -dimensions.z + 0.5f)));  // front wall
+
+
+				}
+			};
 
 
 			///seesaw BASE class
