@@ -116,6 +116,8 @@ namespace PhysicsEngine
 	///Custom scene class
 	class MyScene : public Scene
 	{
+
+		//actors
 		Plane* plane;
 		Box* box;
 		RugbyGoalPost* gPost;
@@ -127,10 +129,18 @@ namespace PhysicsEngine
 		Seesaw* ss;
 		Sphere* sphere;
 		Cloth* cloth;
+		Pyramid* pyramid;
 
+		//triggers
 		triggerBox* tBox;
 		bool boxSpawned;
 		MySimulationEventCallback* callback;
+
+
+		//materials
+		PxMaterial* ballMat = CreateMaterial(0.7f, 0.5f, 0.7f);
+		PxMaterial* grassMat = CreateMaterial(0.9f, 0.5f, 0.3f);
+
 
 	public:
 		///A custom scene class
@@ -157,6 +167,9 @@ namespace PhysicsEngine
 			box->Get()->is<PxRigidDynamic>()->setMass(39);
 			Add(box);*/
 
+			//pyramid = new Pyramid();
+			//Add(pyramid);
+
 			tBox = new triggerBox();
 			tBox->Color(PxVec3(0, 0, 1));
 			tBox->SetTrigger(true);
@@ -175,6 +188,7 @@ namespace PhysicsEngine
 			ball = new RugbyBall();
 			ball->Color(PxVec3(0.4f, 0.2f, 0));
 			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 6, -6.4f)));
+			ball->Material(ballMat);
 			Add(ball);
 
 			fieldlines = new FieldLines();
