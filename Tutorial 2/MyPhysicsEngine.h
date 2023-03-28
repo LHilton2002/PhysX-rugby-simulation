@@ -111,8 +111,6 @@ namespace PhysicsEngine
 		}
 	};
 
-
-
 	///Custom scene class
 	class MyScene : public Scene
 	{
@@ -130,6 +128,7 @@ namespace PhysicsEngine
 		Sphere* sphere;
 		Cloth* cloth;
 		Pyramid* pyramid;
+		blockerBox* blocker;
 
 		//triggers
 		triggerBox* tBox;
@@ -138,8 +137,8 @@ namespace PhysicsEngine
 
 
 		//materials
-		PxMaterial* ballMat = CreateMaterial(0.7f, 0.5f, 0.7f);
-		PxMaterial* grassMat = CreateMaterial(0.9f, 0.5f, 0.3f);
+		PxMaterial* ballMaterial = CreateMaterial(0.7f, 0.5f, 0.7f);
+		PxMaterial* grassMaterial = CreateMaterial(0.9f, 0.5f, 0.3f);
 
 
 	public:
@@ -159,7 +158,9 @@ namespace PhysicsEngine
 
 			plane = new Plane();
 			plane->Color(PxVec3(0,0.3f,0));
+			plane->Material(grassMaterial);
 			Add(plane);
+
 
 			/*box = new Box();
 			box->Color(color_palette[0]);
@@ -188,7 +189,7 @@ namespace PhysicsEngine
 			ball = new RugbyBall();
 			ball->Color(PxVec3(0.4f, 0.2f, 0));
 			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 6, -6.4f)));
-			ball->Material(ballMat);
+			ball->Material(ballMaterial);
 			Add(ball);
 
 			fieldlines = new FieldLines();
@@ -237,6 +238,18 @@ namespace PhysicsEngine
 				box->Get()->is<PxRigidDynamic>()->setMass(25);
 				Add(box);
 			}
+		}
+
+		virtual void spawnBlocker() {
+			if (boxSpawned == false) {
+				blocker = new blockerBox();
+				blocker->Color(PxVec3(1, 0, 0));
+				Add(blocker);
+			}
+		}
+
+		virtual void deleteBlocker() {
+			blocker->Get()->is<PxActor>()->release(); // removes actor from scene
 		}
 
 

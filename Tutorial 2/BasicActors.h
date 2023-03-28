@@ -66,6 +66,19 @@ namespace PhysicsEngine
 
 	};
 
+	class blockerBox : public StaticActor
+	{
+	public:
+
+		blockerBox(const PxTransform& pose = PxTransform(0, 15, -45), PxVec3 dimensions = PxVec3(2.2f, 11.5f, 0.5f), PxReal density = 1.0f)
+			: StaticActor(pose)
+		{
+			CreateShape(PxBoxGeometry(dimensions), density);
+
+		}
+
+	};
+
 	class Capsule : public DynamicActor
 	{
 	public:
@@ -75,6 +88,7 @@ namespace PhysicsEngine
 			CreateShape(PxCapsuleGeometry(dimensions.x, dimensions.y), density);
 		}
 	};
+
 
 	///The ConvexMesh class
 	class ConvexMesh : public DynamicActor
@@ -422,7 +436,7 @@ namespace PhysicsEngine
 
 			};
 
-
+		
 
 			//CLOTH CODE
 

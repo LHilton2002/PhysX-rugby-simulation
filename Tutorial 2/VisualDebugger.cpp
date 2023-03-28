@@ -112,6 +112,8 @@ namespace VisualDebugger
 		hud.AddLine(HELP, "");
 		hud.AddLine(HELP, " Extra Controls");
 		hud.AddLine(HELP, "    F11 - Spawn Brick For Free Kick");
+		hud.AddLine(HELP, "    F2 - Spawn Goal Blocker (Ruins Kick)");
+		hud.AddLine(HELP, "    F3 - Remove Goal Blocker");
 
 		//add a pause screen
 		hud.AddLine(PAUSE, "");
@@ -299,6 +301,17 @@ namespace VisualDebugger
 			//toggle scene pause
 			scene->spawnBox();
 			break;
+
+		case GLUT_KEY_F2:
+			//toggle scene pause
+			scene->spawnBlocker();
+			break;
+
+		case GLUT_KEY_F3:
+			//toggle scene pause
+			scene->deleteBlocker();
+			break;
+
 
 		case GLUT_KEY_F12:
 			//resect scene
