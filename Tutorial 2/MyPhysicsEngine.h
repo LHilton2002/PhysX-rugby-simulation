@@ -70,6 +70,25 @@ namespace PhysicsEngine
 			}
 		}
 
+		virtual void onConstraintBreak(PxConstraintInfo* constraints, PxU32 count)
+		{
+			// do nothing
+		}
+
+		virtual void onWake(PxActor** actors, PxU32 count)
+		{
+			// do nothing
+		}
+
+		virtual void onSleep(PxActor** actors, PxU32 count)
+		{
+			// do nothing
+		}
+
+		virtual void onAdvance(const PxRigidBody* const* bodyBuffer, const PxTransform* poseBuffer, const PxU32 count) {
+			//xx
+		}
+
 		///Method called when the contact by the filter shader is detected.
 		virtual void onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs)
 		{
@@ -108,8 +127,10 @@ namespace PhysicsEngine
 		Seesaw* ss;
 		Sphere* sphere;
 		Cloth* cloth;
+
 		triggerBox* tBox;
 		bool boxSpawned;
+		MySimulationEventCallback* callback;
 
 	public:
 		///A custom scene class
@@ -139,7 +160,14 @@ namespace PhysicsEngine
 			tBox = new triggerBox();
 			tBox->Color(PxVec3(0, 0, 1));
 			tBox->SetTrigger(true);
+
+			callback = new MySimulationEventCallback();
+			PxShape* shape = tBox->GetShape();
+			shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+			px_scene->setSimulationEventCallback(callback);
+
 			Add(tBox);
+
 
 			gPost = new RugbyGoalPost();
 			Add(gPost);
