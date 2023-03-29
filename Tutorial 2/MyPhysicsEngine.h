@@ -163,7 +163,7 @@ namespace PhysicsEngine
 		PxMaterial* grassMaterial = CreateMaterial(0.9f, 0.5f, 0.3f); //grass
 		PxMaterial* postMaterial = CreateMaterial(0.65f, 0.42f, 0.597f); // steel post
 		PxMaterial* castleMaterial = CreateMaterial(0.5f, 0.4f, 0.8f); //stone castle
-
+		PxMaterial* cannonballMaterial = CreateMaterial(0.65f, 0.42f, 0.0f); //cannon ball material (steel based) 
 
 
 	public:
@@ -383,6 +383,7 @@ namespace PhysicsEngine
 		virtual void spawnCannonBallBlocker() {
 			cannonBall = new CannonBall();
 			cannonBall->Color(PxVec3(0, 0, 0));
+			cannonBall->Material(cannonballMaterial);
 			Add(cannonBall);
 			cballsSpawned.push_back(cannonBall);
 		}
