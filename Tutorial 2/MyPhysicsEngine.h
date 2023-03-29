@@ -258,7 +258,7 @@ namespace PhysicsEngine
 			pole->Color(PxVec3(0.4f, 0.4f, 0.4f));
 			Add(pole);
 
-
+			//joint to hold see saw in place after kicks
 			DistanceJoint* joint = new DistanceJoint(ssBase, PxTransform(PxVec3(0.0f, 5.0f, 0.0f)), ss, PxTransform(PxVec3(0.0f, 3.0f, 0.0f)));
 			joint->Stiffness(10.0f);
 			joint->Damping(20.0f);
