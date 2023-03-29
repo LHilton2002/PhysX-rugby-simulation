@@ -43,6 +43,7 @@ namespace PhysicsEngine
 		}
 	};
 
+
 	class MySimulationEventCallback : public PxSimulationEventCallback
 	{
 	public:
@@ -76,6 +77,7 @@ namespace PhysicsEngine
 				}
 			}
 		}
+
 
 		virtual void onConstraintBreak(PxConstraintInfo* constraints, PxU32 count)
 		{
@@ -142,7 +144,12 @@ namespace PhysicsEngine
 		bool boxSpawned;
 		MySimulationEventCallback* callback;
 
+		//extra variables
+		bool blockerSpawned = false;
+		bool celebrationSpawned = false;
 
+
+		
 		//materials
 		// https://www.engineeringtoolbox.com/friction-coefficients-d_778.html
 		// https://hypertextbook.com/facts/2006/restitution.shtml
@@ -150,6 +157,7 @@ namespace PhysicsEngine
 		PxMaterial* grassMaterial = CreateMaterial(0.9f, 0.5f, 0.3f); //grass
 		PxMaterial* postMaterial = CreateMaterial(0.65f, 0.42f, 0.597f); // steel post
 		PxMaterial* castleMaterial = CreateMaterial(0.5f, 0.4f, 0.8f); //stone castle
+
 
 
 	public:
@@ -243,7 +251,7 @@ namespace PhysicsEngine
 			/*sphere = new Sphere();
 			Add(sphere);*/
 
-			//cloth left top
+			/*//cloth left top
 			Cloth* cloth_left_top = new Cloth(PxTransform(PxVec3(-26.0f, 20.f, -108.f)), PxVec2(6.f, 6.f), 40, 40);
 			cloth_left_top->Color(PxVec3(1, 0, 0));
 			Add(cloth_left_top);
@@ -251,7 +259,7 @@ namespace PhysicsEngine
 			//cloth right top
 			Cloth* cloth_right_top = new Cloth(PxTransform(PxVec3(20.f, 20.f, -108.f)), PxVec2(6.f, 6.f), 40, 40);
 			cloth_right_top->Color(PxVec3(0, 0, 1));
-			Add(cloth_right_top);
+			Add(cloth_right_top);*/
 
 			//cloth pole
 			pole = new flagPole;
@@ -270,31 +278,86 @@ namespace PhysicsEngine
 		//Custom udpate function
 		virtual void CustomUpdate() 
 		{
-
+			//Trigger
+			if (callback->trigger && !celebrationSpawned) {
+				spawnCelebrationFlags();
+				celebrationSpawned = true;
+			}
 		}
 
 
 		virtual void spawnBox() {
 			if (boxSpawned == false) {
 				box = new Box();
-				box->Color(color_palette[0]);
+				box->Color(PxVec3(1.0f,0.5f,0.0f));
 				box->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 85, -28.0f)));
 				box->Get()->is<PxRigidDynamic>()->setMass(25);
 				Add(box);
 			}
 		}
 
-		virtual void spawnBlocker() {
-			if (boxSpawned == false) {
-				blocker = new blockerBox();
-				blocker->Color(PxVec3(1, 0, 0));
-				Add(blocker);
+		virtual void spawnBall() {
+			//rugby ball
+			ball->Get()->is<PxActor>()->release();
+			ball = new RugbyBall();
+			ball->Color(PxVec3(0.4f, 0.2f, 0));
+			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 6, -6.4f)));
+			ball->Material(ballMaterial);
+			Add(ball);
+		}
+
+		void spawnCelebrationFlags() {
+			//cloth left top
+			Cloth* cloth_left_top = new Cloth(PxTransform(PxVec3(-26.0f, 20.f, -108.f)), PxVec2(6.f, 6.f), 40, 40);
+			cloth_left_top->Color(PxVec3(1, 0, 0));
+			Add(cloth_left_top);
+
+			//cloth right top
+			Cloth* cloth_right_top = new Cloth(PxTransform(PxVec3(20.f, 20.f, -108.f)), PxVec2(6.f, 6.f), 40, 40);
+			cloth_right_top->Color(PxVec3(0, 0, 1));
+			Add(cloth_right_top);
+
+			// Check if the celebration has already been triggered
+			if (celebrationSpawned) {
+				return;
+			}
+			celebrationSpawned = true;
+
+			// Generate random positions and colors for the spheres
+			const PxVec3 spawn(0.0f, 50.0f, -200.0f);
+			std::vector<PxVec3> positions(100);
+			std::vector<PxVec3> colors(100);
+			for (int i = 0; i < 100; i++) {
+				float x = ((float)rand() / RAND_MAX);
+				float y = ((float)rand() / RAND_MAX);
+				float z = ((float)rand() / RAND_MAX);
+				PxTransform transform(PxVec3(x, y, z));
+
+				positions[i] = spawn + PxVec3(x, y, z);
+				colors[i] = PxVec3((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX);
+			}
+
+			// Spawn the spheres
+			for (int i = 0; i < 100; i++) {
+				Sphere* sphere = new Sphere(PxTransform(positions[i]));
+				sphere->Color(colors[i]);
+				Add(sphere);
 			}
 		}
 
-		virtual void deleteBlocker() {
-			blocker->Get()->is<PxActor>()->release(); // removes actor from scene
+		void toggleBlocker() {
+			if (blockerSpawned ) {
+				blocker->Get()->is<PxActor>()->release();
+				blockerSpawned = false;
+			}
+			else {
+				blocker = new blockerBox();
+				blocker->Color(PxVec3(1, 0, 0));
+				Add(blocker);
+				blockerSpawned = true;
+			}
 		}
+
 
 
 	};

@@ -111,9 +111,11 @@ namespace VisualDebugger
 		hud.AddLine(HELP, "    I,K,J,L,U,M - forward,backward,left,right,up,down");
 		hud.AddLine(HELP, "");
 		hud.AddLine(HELP, " Extra Controls");
+		hud.AddLine(HELP, "    F1 - Spawn New Ball (Despawns old)");
+		hud.AddLine(HELP, "    F2 - Spawn / Despawn Goal Blocker");
 		hud.AddLine(HELP, "    F11 - Spawn Brick For Free Kick");
-		hud.AddLine(HELP, "    F2 - Spawn Goal Blocker (Ruins Kick)");
-		hud.AddLine(HELP, "    F3 - Remove Goal Blocker");
+
+		
 
 		//add a pause screen
 		hud.AddLine(PAUSE, "");
@@ -304,14 +306,17 @@ namespace VisualDebugger
 
 		case GLUT_KEY_F2:
 			//toggle scene pause
-			scene->spawnBlocker();
+			scene->toggleBlocker();
 			break;
 
 		case GLUT_KEY_F3:
 			//toggle scene pause
-			scene->deleteBlocker();
 			break;
 
+		case GLUT_KEY_F1:
+			//toggle scene pause
+			scene->spawnBall();
+			break;
 
 		case GLUT_KEY_F12:
 			//resect scene
