@@ -138,10 +138,12 @@ namespace PhysicsEngine
 		blockerBox* blocker;
 		flagPole* pole;
 		DistanceJoint* joint;
+		CannonBall* cannonBall;
 
 		//store actors created to delete later on
 		std::vector<Box*> boxesSpawned;
 		std::vector<Sphere*> spheresSpawned;
+		std::vector<CannonBall*>cballsSpawned;
 
 		//triggers
 		triggerBox* tBox;
@@ -276,7 +278,6 @@ namespace PhysicsEngine
 			joint->Damping(20.0f);
 
 
-
 		}
 
 		//Custom udpate function
@@ -376,6 +377,21 @@ namespace PhysicsEngine
 				Add(blocker);
 				blockerSpawned = true;
 			}
+		}
+
+
+		virtual void spawnCannonBallBlocker() {
+			cannonBall = new CannonBall();
+			cannonBall->Color(PxVec3(0, 0, 0));
+			Add(cannonBall);
+			cballsSpawned.push_back(cannonBall);
+		}
+
+		virtual void despawncannonBalls() {
+			for (auto cannonBall : cballsSpawned) {
+				cannonBall->Get()->is<PxActor>()->release();
+			}
+			cballsSpawned.clear();
 		}
 
 

@@ -66,6 +66,20 @@ namespace PhysicsEngine
 
 	};
 
+	class CannonBall : public DynamicActor
+	{
+	public:
+		//a sphere with default parameters:
+		// - pose in 0,0,0
+		// - dimensions: 1m
+		// - denisty: 1kg/m^3
+		CannonBall(const PxTransform& pose = PxTransform(0, 20, -70), PxReal radius = 5.f, PxReal density = .5f)
+			: DynamicActor(pose)
+		{
+			CreateShape(PxSphereGeometry(radius), density);
+		}
+	};
+
 	class blockerBox : public StaticActor
 	{
 	public:
@@ -76,9 +90,9 @@ namespace PhysicsEngine
 			CreateShape(PxBoxGeometry(dimensions), density);
 
 		}
-
 	};
 
+	
 	class Capsule : public DynamicActor
 	{
 	public:

@@ -98,24 +98,35 @@ namespace VisualDebugger
 		hud.AddLine(HELP, "    F12 - reset");
 		hud.AddLine(HELP, "");
 		hud.AddLine(HELP, " Display");
-		hud.AddLine(HELP, "    F5 - help on/off");
+		//hud.AddLine(HELP, "    F5 - help on/off");
 		hud.AddLine(HELP, "    F6 - shadows on/off");
 		hud.AddLine(HELP, "    F7 - render mode");
 		hud.AddLine(HELP, "");
 		hud.AddLine(HELP, " Camera");
 		hud.AddLine(HELP, "    W,S,A,D,Q,Z - forward,backward,left,right,up,down");
 		hud.AddLine(HELP, "    mouse + click - change orientation");
-		hud.AddLine(HELP, "    F8 - reset view");
+		//hud.AddLine(HELP, "    F8 - reset view");
 		hud.AddLine(HELP, "");
 		hud.AddLine(HELP, " Force (applied to the selected actor)");
 		hud.AddLine(HELP, "    I,K,J,L,U,M - forward,backward,left,right,up,down");
 		hud.AddLine(HELP, "");
 		hud.AddLine(HELP, " Extra Controls");
+		hud.AddLine(HELP, "");
+		hud.AddLine(HELP, " Rugby Ball");
 		hud.AddLine(HELP, "    F1 - Spawn New Ball (Despawns old)");
-		hud.AddLine(HELP, "    F2 - Spawn / Despawn Goal Blocker");
-		hud.AddLine(HELP, "    F3 - Despawn all bricks in the scene");
-		hud.AddLine(HELP, "    F4 - Despawn all spheres created from celebration");
+		hud.AddLine(HELP, "");
+		hud.AddLine(HELP, " Bricks");
 		hud.AddLine(HELP, "    F11 - Spawn Brick For Free Kick");
+		hud.AddLine(HELP, "    F3 - Despawn all bricks in the scene");
+		hud.AddLine(HELP, "");
+		hud.AddLine(HELP, " Blockers");
+		hud.AddLine(HELP, "    F2 - Spawn / Despawn static Goal Blocker");
+		hud.AddLine(HELP, "    F8 - Spawn Cannon Ball blocker");
+		hud.AddLine(HELP, "    F5 - Despawn all cannon balls in scene");
+		hud.AddLine(HELP, "");
+		hud.AddLine(HELP, " Celebration Controls");
+		hud.AddLine(HELP, "    F4 - Despawn all spheres created from celebration");
+
 
 		
 
@@ -276,7 +287,8 @@ namespace VisualDebugger
 			//display control
 		case GLUT_KEY_F5:
 			//hud on/off
-			hud_show = !hud_show;
+			//hud_show = !hud_show;
+			scene->despawncannonBalls();
 			break;
 		case GLUT_KEY_F6:
 			//shadows on/off
@@ -288,7 +300,8 @@ namespace VisualDebugger
 			break;
 		case GLUT_KEY_F8:
 			//reset camera view
-			camera->Reset();
+			//camera->Reset();
+			scene->spawnCannonBallBlocker();
 			break;
 
 			//simulation control
