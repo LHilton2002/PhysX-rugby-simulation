@@ -139,6 +139,10 @@ namespace PhysicsEngine
 		flagPole* pole;
 		DistanceJoint* joint;
 
+		//store actors created to delete later on
+		std::vector<Box*> boxesSpawned;
+		std::vector<Sphere*> spheresSpawned;
+
 		//triggers
 		triggerBox* tBox;
 		bool boxSpawned;
@@ -197,7 +201,7 @@ namespace PhysicsEngine
 
 			//trigger box
 			tBox = new triggerBox();
-			tBox->Color(PxVec3(0, 0, 1));
+			tBox->Color(PxVec3(0.6f, 0.3f, 1));
 			tBox->SetTrigger(true);
 
 			callback = new MySimulationEventCallback();
@@ -216,7 +220,7 @@ namespace PhysicsEngine
 			//rugby ball
 			ball = new RugbyBall();
 			ball->Color(PxVec3(0.4f, 0.2f, 0));
-			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 6, -6.4f)));
+			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 6, -35.0f)));
 			ball->Material(ballMaterial);
 			Add(ball);
 
@@ -290,10 +294,18 @@ namespace PhysicsEngine
 			if (boxSpawned == false) {
 				box = new Box();
 				box->Color(PxVec3(1.0f,0.5f,0.0f));
-				box->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 85, -28.0f)));
+				box->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 85, -57.3f)));
 				box->Get()->is<PxRigidDynamic>()->setMass(25);
 				Add(box);
+				boxesSpawned.push_back(box);
 			}
+		}
+
+		virtual void despawnBricks() {
+			for (auto box : boxesSpawned) {
+				box->Get()->is<PxActor>()->release();
+			}
+			boxesSpawned.clear();
 		}
 
 		virtual void spawnBall() {
@@ -301,7 +313,7 @@ namespace PhysicsEngine
 			ball->Get()->is<PxActor>()->release();
 			ball = new RugbyBall();
 			ball->Color(PxVec3(0.4f, 0.2f, 0));
-			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 6, -6.4f)));
+			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 6, -40.0f)));
 			ball->Material(ballMaterial);
 			Add(ball);
 		}
@@ -342,7 +354,15 @@ namespace PhysicsEngine
 				Sphere* sphere = new Sphere(PxTransform(positions[i]));
 				sphere->Color(colors[i]);
 				Add(sphere);
+				spheresSpawned.push_back(sphere);
 			}
+		}
+
+		virtual void despawnCBalls() {
+			for (auto sphere : spheresSpawned) {
+				sphere->Get()->is<PxActor>()->release();
+			}
+			spheresSpawned.clear();
 		}
 
 		void toggleBlocker() {

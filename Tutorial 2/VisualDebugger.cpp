@@ -113,6 +113,8 @@ namespace VisualDebugger
 		hud.AddLine(HELP, " Extra Controls");
 		hud.AddLine(HELP, "    F1 - Spawn New Ball (Despawns old)");
 		hud.AddLine(HELP, "    F2 - Spawn / Despawn Goal Blocker");
+		hud.AddLine(HELP, "    F3 - Despawn all bricks in the scene");
+		hud.AddLine(HELP, "    F4 - Despawn all spheres created from celebration");
 		hud.AddLine(HELP, "    F11 - Spawn Brick For Free Kick");
 
 		
@@ -311,6 +313,12 @@ namespace VisualDebugger
 
 		case GLUT_KEY_F3:
 			//toggle scene pause
+			scene->despawnBricks();
+			break;
+
+		case GLUT_KEY_F4:
+			//toggle scene pause
+			scene->despawnCBalls();
 			break;
 
 		case GLUT_KEY_F1:
