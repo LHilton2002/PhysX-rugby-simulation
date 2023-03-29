@@ -57,7 +57,7 @@ namespace PhysicsEngine
 	{
 	public:
 
-		triggerBox(const PxTransform& pose = PxTransform(0,15,-50), PxVec3 dimensions = PxVec3(2.2f, 11.5f, 0.5f), PxReal density = 1.0f)
+		triggerBox(const PxTransform& pose = PxTransform(0,16.9f,-45), PxVec3 dimensions = PxVec3(5.2f, 10.5f, 0.5f), PxReal density = 1.0f)
 			: StaticActor(pose)
 		{
 			CreateShape(PxBoxGeometry(dimensions), density);
@@ -70,7 +70,7 @@ namespace PhysicsEngine
 	{
 	public:
 
-		blockerBox(const PxTransform& pose = PxTransform(0, 15, -45), PxVec3 dimensions = PxVec3(2.2f, 11.5f, 0.5f), PxReal density = 1.0f)
+		blockerBox(const PxTransform& pose = PxTransform(0, 13, -40), PxVec3 dimensions = PxVec3(5.6f, 11.5f, 0.5f), PxReal density = 1.0f)
 			: StaticActor(pose)
 		{
 			CreateShape(PxBoxGeometry(dimensions), density);
@@ -168,19 +168,19 @@ namespace PhysicsEngine
 				CreateShape(PxBoxGeometry(dimensions), density);
 
 				if (i == 1) {
-					dimensions = PxVec3(2.8f, 0.3f, .5f); //2.8 * 2 = 5.6m crossbar 
+					dimensions = PxVec3(5.6f, 0.3f, .5f); //2.8 * 2 = 5.6m crossbar 
 				}
 			}
 
 			// Set Shape Transform 
 
 			// Left
-			GetShape(0)->setLocalPose(PxTransform(PxVec3(-2.8f, 1.f, -50.0f)));
+			GetShape(0)->setLocalPose(PxTransform(PxVec3(-5.6f, 1.f, -45.0f)));
 			// Right
-			GetShape(1)->setLocalPose(PxTransform(PxVec3(2.8f, 1.f, -50.0f)));
+			GetShape(1)->setLocalPose(PxTransform(PxVec3(5.6f, 1.f, -45.0f)));
 
 			// Horizontal (cross bar)
-			GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, 3.0f, -50.0f)));
+			GetShape(2)->setLocalPose(PxTransform(PxVec3(0.0f, 6.0f, -45.0f)));
 		}
 	};
 
