@@ -220,7 +220,7 @@ namespace PhysicsEngine
 			//rugby ball
 			ball = new RugbyBall();
 			ball->Color(PxVec3(0.4f, 0.2f, 0));
-			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 6, -35.0f)));
+			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 6, -34.5f)));
 			ball->Material(ballMaterial);
 			Add(ball);
 
@@ -294,8 +294,8 @@ namespace PhysicsEngine
 			if (boxSpawned == false) {
 				box = new Box();
 				box->Color(PxVec3(1.0f,0.5f,0.0f));
-				box->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 85, -57.3f)));
-				box->Get()->is<PxRigidDynamic>()->setMass(25);
+				box->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 85, -60.3f)));
+				box->Get()->is<PxRigidDynamic>()->setMass(30);
 				Add(box);
 				boxesSpawned.push_back(box);
 			}
@@ -313,7 +313,7 @@ namespace PhysicsEngine
 			ball->Get()->is<PxActor>()->release();
 			ball = new RugbyBall();
 			ball->Color(PxVec3(0.4f, 0.2f, 0));
-			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 6, -40.0f)));
+			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 5, -40.0f)));
 			ball->Material(ballMaterial);
 			Add(ball);
 		}
