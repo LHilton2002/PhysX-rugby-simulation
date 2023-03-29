@@ -10,7 +10,7 @@ namespace VisualDebugger
 	namespace Renderer
 	{
 		PxVec3 default_color = PxVec3(0.8f, 0.8f, 0.8f);
-		PxVec3 background_color = PxVec3(0.f,0.f,0.f);
+		PxVec3 background_color = PxVec3(0.0f,0.f,0.f);
 		int render_detail = 10;
 		bool show_shadows = true;
 
@@ -283,7 +283,7 @@ namespace VisualDebugger
 
 		void BackgroundColor(const PxVec3& color)
 		{
-			background_color = color;
+			background_color = PxVec3(0,0,0.5f); //change skybox to blue for daytime
 		}
 
 		void Render(PxActor** actors, const PxU32 numActors)

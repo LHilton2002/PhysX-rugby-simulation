@@ -253,7 +253,7 @@ namespace PhysicsEngine
 					GetShape(6)->setLocalPose(PxTransform(PxVec3(0.0f, -0.9f, 10.0f)));
 
 					//try -5
-					GetShape(4)->setLocalPose(PxTransform(PxVec3(0, -0.9f, -40)));
+					GetShape(4)->setLocalPose(PxTransform(PxVec3(0, -0.9f, -45)));
 
 				}
 			};
