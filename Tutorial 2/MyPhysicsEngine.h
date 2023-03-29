@@ -79,21 +79,18 @@ namespace PhysicsEngine
 
 		virtual void onConstraintBreak(PxConstraintInfo* constraints, PxU32 count)
 		{
-			// do nothing
 		}
 
 		virtual void onWake(PxActor** actors, PxU32 count)
 		{
-			// do nothing
 		}
 
 		virtual void onSleep(PxActor** actors, PxU32 count)
 		{
-			// do nothing
 		}
 
-		virtual void onAdvance(const PxRigidBody* const* bodyBuffer, const PxTransform* poseBuffer, const PxU32 count) {
-			//xx
+		virtual void onAdvance(const PxRigidBody* const* bodyBuffer, const PxTransform* poseBuffer, const PxU32 count)
+		{
 		}
 
 		///Method called when the contact by the filter shader is detected.
@@ -119,6 +116,7 @@ namespace PhysicsEngine
 		}
 	};
 
+
 	///Custom scene class
 	class MyScene : public Scene
 	{
@@ -134,10 +132,10 @@ namespace PhysicsEngine
 		SeesawBase* ssBase;
 		Seesaw* ss;
 		Sphere* sphere;
-		Cloth* cloth;
 		Pyramid* pyramid;
 		blockerBox* blocker;
 		flagPole* pole;
+		DistanceJoint* joint;
 
 		//triggers
 		triggerBox* tBox;
@@ -160,6 +158,10 @@ namespace PhysicsEngine
 		{
 			px_scene->setVisualizationParameter(PxVisualizationParameter::eSCALE, 1.0f);
 			px_scene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_SHAPES, 1.0f);
+
+			//joint visualisation
+			px_scene->setVisualizationParameter(PxVisualizationParameter::eJOINT_LOCAL_FRAMES, 1.0f);
+			px_scene->setVisualizationParameter(PxVisualizationParameter::eJOINT_LIMITS, 1.0f);
 		}
 
 		//Custom scene initialisation
@@ -169,6 +171,7 @@ namespace PhysicsEngine
 
 			GetMaterial()->setDynamicFriction(.2f);
 
+			//grass
 			plane = new Plane();
 			plane->Color(PxVec3(0,0.3f,0));
 			plane->Material(grassMaterial);
@@ -184,6 +187,7 @@ namespace PhysicsEngine
 			//pyramid = new Pyramid();
 			//Add(pyramid);
 
+			//trigger box
 			tBox = new triggerBox();
 			tBox->Color(PxVec3(0, 0, 1));
 			tBox->SetTrigger(true);
@@ -195,17 +199,21 @@ namespace PhysicsEngine
 
 			Add(tBox);
 
-
+			//goal post
 			gPost = new RugbyGoalPost();
 			gPost->Material(postMaterial);
 			Add(gPost);
 
+
+			//rugby ball
 			ball = new RugbyBall();
 			ball->Color(PxVec3(0.4f, 0.2f, 0));
 			ball->Get()->is<PxRigidDynamic>()->setGlobalPose(PxTransform(PxVec3(0, 6, -6.4f)));
 			ball->Material(ballMaterial);
 			Add(ball);
 
+
+			//field lines
 			fieldlines = new FieldLines();
 			fieldlines->Material(grassMaterial);
 			Add(fieldlines);
@@ -214,13 +222,20 @@ namespace PhysicsEngine
 			outerlines->Material(grassMaterial);
 			Add(outerlines);
 
+			//castle
 			castleTB = new Castle();
 			castleTB->Color(PxVec3(0.4f, 0.4f, 0.4f));
 			castleTB->Material(castleMaterial);
 			Add(castleTB);
 
+
+			//see saw
 			ssBase = new SeesawBase();
+			SeesawBase* ssBase2;
+			ssBase2 = new SeesawBase();
 			Add(ssBase);
+			Add(ssBase2);
+
 
 			ss = new Seesaw();
 			Add(ss);
@@ -229,18 +244,26 @@ namespace PhysicsEngine
 			Add(sphere);*/
 
 			//cloth left top
-			cloth = new Cloth(PxTransform(PxVec3(-26.0f, 20.f, -108.f)), PxVec2(6.f, 6.f), 40, 40);
-			cloth->Color(PxVec3(1,0,0));
-			Add(cloth);        
+			Cloth* cloth_left_top = new Cloth(PxTransform(PxVec3(-26.0f, 20.f, -108.f)), PxVec2(6.f, 6.f), 40, 40);
+			cloth_left_top->Color(PxVec3(1, 0, 0));
+			Add(cloth_left_top);
 
 			//cloth right top
-			cloth = new Cloth(PxTransform(PxVec3(20.f, 20.f, -108.f)), PxVec2(6.f, 6.f), 10, 10);
-			cloth->Color(PxVec3(0, 0, 1));
-			Add(cloth);
+			Cloth* cloth_right_top = new Cloth(PxTransform(PxVec3(20.f, 20.f, -108.f)), PxVec2(6.f, 6.f), 40, 40);
+			cloth_right_top->Color(PxVec3(0, 0, 1));
+			Add(cloth_right_top);
 
+			//cloth pole
 			pole = new flagPole;
 			pole->Color(PxVec3(0.4f, 0.4f, 0.4f));
 			Add(pole);
+
+
+			DistanceJoint* joint = new DistanceJoint(ssBase, PxTransform(PxVec3(0.0f, 5.0f, 0.0f)), ss, PxTransform(PxVec3(0.0f, 3.0f, 0.0f)));
+			joint->Stiffness(10.0f);
+			joint->Damping(20.0f);
+
+
 
 		}
 
