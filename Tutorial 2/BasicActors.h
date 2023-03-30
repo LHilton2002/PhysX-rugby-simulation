@@ -238,7 +238,6 @@ namespace PhysicsEngine
 		};
 
 			// Field Lines - rugby union pitch. All measurements doubled in size 
-			// https://www.dlgsc.wa.gov.au/sport-and-recreation/sports-dimensions-guide/rugby-union#:~:text=Dimensions%20of%20the%20field%20of,is%20not%20less%20than%205m.
 			class FieldLines : public StaticActor
 			{
 			public:
