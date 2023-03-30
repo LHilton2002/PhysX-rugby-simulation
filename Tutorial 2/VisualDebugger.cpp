@@ -126,6 +126,11 @@ namespace VisualDebugger
 		hud.AddLine(HELP, "");
 		hud.AddLine(HELP, " Celebration Controls");
 		hud.AddLine(HELP, "    F4 - Despawn all spheres created from celebration");
+		hud.AddLine(HELP, "");
+		hud.AddLine(HELP, " CHANGE FLOOR TYPE   vglass, c ice ,x grass ");
+		hud.AddLine(HELP, "    V - glass");
+		hud.AddLine(HELP, "    C - ice");
+		hud.AddLine(HELP, "    X - grass");
 
 
 		
@@ -273,6 +278,16 @@ namespace VisualDebugger
 		case 'M': //down
 			scene->GetSelectedActor()->addForce(PxVec3(0,-1,0)*gForceStrength);
 			break;
+		case 'V': //down
+			scene->planeMatGlass();
+			break;
+		case 'C': //down
+			scene->planeMatIce();
+			break;
+		case 'X': //down
+			scene->planeMatGrass();
+			break;
+
 		default:
 			break;
 		}

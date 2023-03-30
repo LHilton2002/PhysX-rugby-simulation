@@ -164,8 +164,9 @@ namespace PhysicsEngine
 		PxMaterial* postMaterial = CreateMaterial(0.65f, 0.42f, 0.597f); // steel post
 		PxMaterial* castleMaterial = CreateMaterial(0.5f, 0.4f, 0.8f); //stone castle
 		PxMaterial* cannonballMaterial = CreateMaterial(0.65f, 0.42f, 0.0f); //cannon ball material (steel based) 
-
-
+		PxMaterial* glassMaterial = CreateMaterial(0.9f,0.4f,0.1f); //glass material
+		PxMaterial* iceMaterial = CreateMaterial(0.1f, 0.02f, 0.2f); //ice material
+		
 	public:
 		///A custom scene class
 		void SetVisualisation()
@@ -319,7 +320,7 @@ namespace PhysicsEngine
 			Add(ball);
 		}
 
-		void spawnCelebrationFlags() {
+		virtual void spawnCelebrationFlags() {
 			//cloth left top
 			Cloth* cloth_left_top = new Cloth(PxTransform(PxVec3(-26.0f, 20.f, -108.f)), PxVec2(6.f, 6.f), 40, 40);
 			cloth_left_top->Color(PxVec3(1, 0, 0));
@@ -395,7 +396,19 @@ namespace PhysicsEngine
 			cballsSpawned.clear();
 		}
 
+		virtual void planeMatGlass() {
+			plane->Color(PxVec3(0.9f, 1.0f, 0.9f));
+			plane->Material(glassMaterial);
+		}
 
+		virtual void planeMatIce() {
+			plane->Color(PxVec3(0.2f, 0.0f, 1.0f));
+			plane->Material(iceMaterial);
+		}
 
+		virtual void planeMatGrass() {
+			plane->Color(PxVec3(0, 0.3f, 0));
+			plane->Material(grassMaterial);
+		}
 	};
 }
